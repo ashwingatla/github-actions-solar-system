@@ -26,8 +26,8 @@ jobs:
         - name: Cache Dependencies
           uses: actions/cache@v4
           with:
-            path: node-modules
-            key: ${{hashFiles('package-lock.json')}}
+            path: node_modules
+            key: node-modules-${{hashFiles('package-lock.json')}}
     
         - name: Install Dependencies
           run: npm install
@@ -54,7 +54,7 @@ jobs:
             uses: actions/cache@v4
             with:
               path: node_modules
-              key: ${{hashFiles('package-lock.json')}}
+              key: node-modules-${{hashFiles('package-lock.json')}}
           - name: Install NodeJS
             run: npm install
           - name: Run Code Coverage
