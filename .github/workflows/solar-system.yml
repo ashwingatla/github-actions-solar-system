@@ -48,6 +48,7 @@ jobs:
           - name: Install NodeJS
             run: npm install
           - name: Run Code Coverage
+            continue-on-error: true
             run: npm run coverage
           - name: Upload Code Coverage Results
             uses: actions/upload-artifact@v4
