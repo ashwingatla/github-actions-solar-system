@@ -79,7 +79,7 @@ jobs:
             username: ${{vars.DOCKERHUB_USERNAME}}
             password: ${{secrets.DOCKERHUB_TOKEN}}
         - name: Docker Build
-          uses: docker/build-push-actions@v6
+          uses: docker/build-push-action@v6
           with:
             context: .
             push: false
@@ -91,7 +91,7 @@ jobs:
             echo "Testing the Image"
             wget -q -O - 127.0.0.1:3000/live | grep live
         - name: Docker Push
-          uses: docker/build-push-actions@v6
+          uses: docker/build-push-action@v6
           with:
             context: .
             push: true
