@@ -86,6 +86,7 @@ jobs:
             tag: ${{github.actor}}/solar-system:${{github.sha}}
         - name: Docker test
           run: |
+            docker images
             docker run -d --name solar-system -p 3000:3000 -e MONGO_URI=$MONGO_URI -e MONGO_USERNAME=$MONGO_USERNAME \
              -e MONGO_PASSWORD=$MONGO_PASSWORD ${{github.actor}}/solar-system:${{github.sha}}
             echo "Testing the Image"
