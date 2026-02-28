@@ -66,8 +66,10 @@ jobs:
               name: Code-Coverage-Result
               path: coverage
               retention-days: 5
-    docker-login:
+    docker-gha:
       runs-on: ubuntu-latest
+      permissions:
+        packages: write
       needs: [unit-testing, code-coverage]
       steps:
         - name: Docker Checkout
@@ -76,8 +78,14 @@ jobs:
         - name: Docker login
           uses: docker/login-action@v3
           with:
+            registry: ghcr.io
             username: ${{vars.DOCKERHUB_USERNAME}}
             password: ${{secrets.DOCKERHUB_TOKEN}}
+        - name: GHA login
+          uses: docker/login-action@v3
+          with:
+            username: ${{github.repository_owner}}
+            password: ${{secrets.GITHUB_TOKEN}}
         - name: Docker Build
           uses: docker/build-push-action@v6
           with:
@@ -96,4 +104,6 @@ jobs:
           with:
             context: .
             push: true
-            tags: ${{github.actor}}/solar-system:${{github.sha}}
+            tags: |
+              ${{github.actor}}/solar-system:${{github.sha}}
+              ghcr.io/${{github.repository_owner}}/solar-system:${{github.sha}}
