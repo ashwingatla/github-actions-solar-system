@@ -148,7 +148,6 @@ jobs:
           run: |
             kubectl get svc ingress-nginx-controller -n ingress-nginx -o json
             echo "INGRESS_IP=$(kubectl -n ingress-nginx get services ingress-nginx-controller -o jsonpath="{.spec.clusterIPs[0]}")" >> $GITHUB_ENV
-            echo ${{env.INGRESS_IP}}
         - name: Token Replacement
           uses: cschleiden/replace-tokens@v1
           with:
@@ -156,6 +155,7 @@ jobs:
             tokenSuffix: '_}_'
             files: '["kubernetes/development/*.yaml"]'
           env:
+            run: echo ${{env.INGRESS_IP}}
             NAMESPACE: ${{vars.NAMESPACE}}
             REPLICAS: ${{vars.REPLICAS}}
             INGRESS_IP: ${{env.INGRESS_IP}}
