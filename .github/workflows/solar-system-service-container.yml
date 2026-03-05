@@ -143,7 +143,7 @@ jobs:
               echo "--------------"
               kubectl get nodes
               kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
-              kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io component=controller --timeout=90s
+              kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/component=controller --timeout=90s
         - name: Extract Ingress IP to environment variable
           run: |
             kubectl get svc ingress-nginx-controller -n ingress-nginx -o json
