@@ -125,17 +125,20 @@ jobs:
           uses: azure/setup-kubectl@v4
           with:
             version: 'v1.28.0'
-        - name: KubeConfig Configuration
-          uses: azure/k8s-set-context@v4
+        # - name: KubeConfig Configuration
+        #   uses: azure/k8s-set-context@v4
+        #   with:
+        #     method: kubeconfig
+        #     kubeconfig: ${{secrets.KUBECONFIG}}
+        - name: Creating a Kind Cluster
+          uses: engineerd/setup-kind@v0.6.0
           with:
-            method: kubeconfig
-            kubeconfig: ${{secrets.KUBECONFIG}}
+            version: "v0.6.2"
 
         - name: Get Cluster Details
           run: |
               kubectl version
               echo "--------------"
-              kubectl config view
+              kubectl config get-contexts
               echo "--------------"
               kubectl get nodes
-
