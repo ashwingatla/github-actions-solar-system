@@ -135,5 +135,7 @@ jobs:
           run: |
               kubectl version
               echo "--------------"
+              kubectl config view
+              echo "--------------"
               kubectl get nodes
 
